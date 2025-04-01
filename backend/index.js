@@ -19,7 +19,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(morgan("tiny"))
 app.use(cors({
-    origin:true,
+    origin:"https://todi-ntq6.onrender.com",
     credentials:true
 }))
 

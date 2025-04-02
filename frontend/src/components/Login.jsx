@@ -4,18 +4,16 @@ import axios from '../utils/axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loading from './Loading';
 
 
 const Login = () => {
-    const { email, setEmail, password, setPassword, token, setToken, setLoading } = useContext(UserContext);
+    const { email, setEmail, password, setPassword, token, setToken } = useContext(UserContext);
     const navigate = useNavigate();
 
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
             const user = { email, password };
-            setLoading(true)
             const loginUser = await axios.post("/user/login", user, {
                 withCredentials: true
             });
@@ -26,7 +24,6 @@ const Login = () => {
             setEmail("");
             setPassword("");
             navigate("/");
-            setLoading(false)
             setTimeout(() => {
                 toast.success(loginUser.data.message)
             }, 1000);
@@ -79,11 +76,16 @@ const Login = () => {
                         required
                     />
                 </div>
-                <Loading text={"Login"} />
 
+                <button
+                    type="submit"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+                >
+                    Login
+                </button>
                 <p class="text-sm mt-5 text-center text-gray-600">
                     Don't have an account?
-                    <a onClick={() => navigate("/signup")} class="text-blue-500 hover:underline font-medium"> Sign up</a>
+                    <a onClick={()=> navigate("/signup")} class="text-blue-500 hover:underline font-medium"> Sign up</a>
                 </p>
             </form>
 

@@ -9,10 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
     const { email, setEmail, password, setPassword, token, setToken } = useContext(UserContext);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
 
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true)
             const user = { email, password };
             const loginUser = await axios.post("/user/login", user, {
                 withCredentials: true
@@ -24,6 +26,7 @@ const Login = () => {
             setEmail("");
             setPassword("");
             navigate("/");
+            setLoading(false)
             setTimeout(() => {
                 toast.success(loginUser.data.message)
             }, 1000);
@@ -81,11 +84,11 @@ const Login = () => {
                     type="submit"
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
                 >
-                    Login
+                    {loading ? "Loading..." : "Login"}
                 </button>
                 <p class="text-sm mt-5 text-center text-gray-600">
                     Don't have an account?
-                    <a onClick={()=> navigate("/signup")} class="text-blue-500 hover:underline font-medium"> Sign up</a>
+                    <a onClick={() => navigate("/signup")} class="text-blue-500 hover:underline font-medium"> Sign up</a>
                 </p>
             </form>
 

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { TaskContext } from '../utils/TaskContext';
 
 const Form = ({ createFunction,setTask,setHeading, task,heading,formHeading, button,close }) => {
-  let { updateHeading,setUpdateHeading,updateTask,setUpdateTask } = useContext(TaskContext);
+  let { updateHeading,setUpdateHeading,updateTask,setUpdateTask ,loading} = useContext(TaskContext);
 
   return (
     <div className="px-4 absolute  sm:px-6 md:px-8 flex justify-center w-full max-w-xl bg-white p-6 rounded-xl shadow-md">
@@ -35,7 +35,7 @@ const Form = ({ createFunction,setTask,setHeading, task,heading,formHeading, but
           type="submit"
           className="bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all text-base sm:text-lg font-medium"
         >
-          {button}
+          {loading ? "Loading..." : `${button}`}
         </button>
       </form>
     </div>

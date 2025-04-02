@@ -8,6 +8,7 @@ export let TaskProvider = (props) => {
     
 
     const [heading, setHeading] = useState("")
+    const [loading, setLoading] = useState(false)
     const [task, setTask] = useState("")
     const [viewTasks, setViewTasks] = useState([])
     const [updateHeading, setUpdateHeading] = useState("")
@@ -18,6 +19,7 @@ export let TaskProvider = (props) => {
     let createTask = async (e) => {
         try {
             e.preventDefault()
+            setLoading(true)
             let newTask = { heading, task }
             setCreateSwitch(false)
 
@@ -26,8 +28,10 @@ export let TaskProvider = (props) => {
             })
             setHeading("")
             setTask("")
+
             console.log(response)
             getTaskData()
+            setLoading(false)
 
 
         } catch (error) {
@@ -73,6 +77,7 @@ export let TaskProvider = (props) => {
     }
     let updateTaskHandler=async(e)=>{
         e.preventDefault()
+        setLoading(true)
         let updatedNewTask={
             heading:updateHeading,
             task:updateTask
@@ -87,6 +92,7 @@ export let TaskProvider = (props) => {
         setId("")
         setUpdateSwitch(false)
         getTaskData()
+        setLoading(false)
         setTimeout(() => {
             toast.success(data.message)
         }, 1000);
@@ -98,7 +104,7 @@ export let TaskProvider = (props) => {
        setCreateSwitch(false) 
     },[])
     return (
-        <TaskContext.Provider value={{ heading, setHeading, task, setTask,createTask ,viewTasks,deleteTask,updateHandler, updateHeading,setUpdateHeading,updateTask,setUpdateTask,updateTaskHandler,updateSwitch ,setUpdateSwitch,createForm,createSwitch,setCreateSwitch,getTaskData}}>
+        <TaskContext.Provider value={{ heading, setHeading, task, setTask,createTask ,viewTasks,deleteTask,updateHandler, updateHeading,setUpdateHeading,updateTask,setUpdateTask,updateTaskHandler,updateSwitch ,setUpdateSwitch,createForm,createSwitch,setCreateSwitch,getTaskData , loading,setLoading}}>
             {props.children}
         </TaskContext.Provider>
     )

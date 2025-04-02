@@ -8,6 +8,7 @@ const Profile = () => {
   
   const navigate = useNavigate()
   let {token,username,setUsername,email,setEmail,setPassword,password}=useContext(UserContext)
+  const [loading, setLoading] = useState(false)
 
   const getUserData = async () => {
     try {
@@ -30,6 +31,7 @@ const Profile = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault()
+    setLoading(true)
     try {
       const user = { username, email, password }
 
@@ -44,6 +46,7 @@ const Profile = () => {
         toast.success(data.message)
     }, 500);
       navigate("/")
+      setLoading(false)
 
     } catch (error) {
       console.log(error)
@@ -90,7 +93,7 @@ const Profile = () => {
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
         >
-          Update
+          {loading ? "Loading..." : "Update"}
         </button>
       </form>
     </div>

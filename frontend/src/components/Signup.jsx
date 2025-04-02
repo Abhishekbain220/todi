@@ -7,10 +7,12 @@ import { toast } from 'react-toastify'
 const Signup = () => {
     let { username, setUsername, email, setEmail, password, setPassword, token } = useContext(UserContext)
     let navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     const submitHandler = async (e) => {
         try {
             e.preventDefault()
+            setLoading(true)
             const user = { username, email, password }
             let signupData = await axios.post("/user/signup", user)
             setEmail("")
@@ -18,6 +20,7 @@ const Signup = () => {
             setUsername("")
             console.log(user)
             navigate("/login")
+            setLoading(false)
 
             setTimeout(() => {
                 toast.success(signupData.data.message)
@@ -78,7 +81,7 @@ const Signup = () => {
                     type="submit"
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-300"
                 >
-                    Submit
+                    {loading ? "Loading..." : "Submit"}
                 </button>
                 <p class="text-sm mt-5 text-center text-gray-600">
                     Already have an account?

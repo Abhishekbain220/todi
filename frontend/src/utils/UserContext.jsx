@@ -9,6 +9,7 @@ export let UserProvider = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [token, setToken] = useState(null)
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         let storeToken = JSON.parse(localStorage.getItem("authToken"))
         setToken(storeToken)

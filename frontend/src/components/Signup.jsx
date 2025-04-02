@@ -3,14 +3,16 @@ import axios from '../utils/axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../utils/UserContext'
 import { toast } from 'react-toastify'
+import Loading from './Loading'
 
 const Signup = () => {
-    let { username, setUsername, email, setEmail, password, setPassword, token } = useContext(UserContext)
+    let { username, setUsername, email, setEmail, password, setPassword, token,setLoading } = useContext(UserContext)
     let navigate = useNavigate()
 
     const submitHandler = async (e) => {
         try {
             e.preventDefault()
+            setLoading(true)
             const user = { username, email, password }
             let signupData = await axios.post("/user/signup", user)
             setEmail("")
@@ -18,6 +20,7 @@ const Signup = () => {
             setUsername("")
             console.log(user)
             navigate("/login")
+            setLoading(false)
 
             setTimeout(() => {
                 toast.success(signupData.data.message)
@@ -74,12 +77,7 @@ const Signup = () => {
                     />
                 </div>
 
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-300"
-                >
-                    Submit
-                </button>
+                <Loading text={"Submit"}/>
                 <p class="text-sm mt-5 text-center text-gray-600">
                     Already have an account?
                     <a onClick={() => navigate("/login")} class="text-blue-500 hover:underline font-medium"> Log in</a>

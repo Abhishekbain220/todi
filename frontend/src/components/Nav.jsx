@@ -38,7 +38,6 @@ const Nav = () => {
         <div className="md:hidden px-4 pb-4 bg-white border-t">
           <Link to="/" className="block py-2 text-gray-700 hover:text-blue-600" onClick={() => setIsOpen(false)}>Home</Link>
           <Link to="/profile" className="block py-2 text-gray-700 hover:text-blue-600" onClick={() => setIsOpen(false)}>Profile</Link>
-          <Link to="/about" className="block py-2 text-gray-700 hover:text-blue-600" onClick={() => setIsOpen(false)}>About</Link>
           <Link className="block py-2 text-gray-700 hover:text-blue-600" onClick={logout}>Logout</Link>
         </div>
       )}

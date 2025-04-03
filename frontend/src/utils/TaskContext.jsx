@@ -16,6 +16,7 @@ export let TaskProvider = (props) => {
     const [id, setId] = useState("")
     const [updateSwitch, setUpdateSwitch] = useState(false)
     const [createSwitch, setCreateSwitch] = useState(false)
+    
     let createTask = async (e) => {
         try {
             e.preventDefault()
@@ -56,13 +57,14 @@ export let TaskProvider = (props) => {
     },[])
 
     let deleteTask=async(id)=>{
-        
+        setLoading(true)
         let {data}=await axios.delete(`/task/deleteTask/${id}`,{
             withCredentials:true
         })
         setUpdateHeading("")
         setUpdateTask("")
         getTaskData()
+        setLoading(false)
         setTimeout(() => {
             toast.success(data.message)
         }, 1000);

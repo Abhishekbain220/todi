@@ -29,12 +29,11 @@ const Home = () => {
     createSwitch,
     setCreateSwitch,
     setUpdateSwitch,
-    getTaskData,
+    getTaskData,loading,setLoading
   } = useContext(TaskContext);
 
   const navigate = useNavigate();
   const [user, setUser] = useState("");
-  const [loading, setLoading] = useState(true);
 
   const getUser = async () => {
     try {
@@ -116,10 +115,10 @@ const Home = () => {
                   <p className="text-gray-700 text-sm break-words">{elem.task}</p>
                 </div>
                 <div className="text-2xl mt-2 sm:mt-0">
-                  <i
+                {!loading ? (<i
                     onClick={() => deleteTask(elem._id)}
                     className="ri-delete-bin-6-line cursor-pointer text-red-500 hover:text-red-700"
-                  ></i>
+                  ></i>):(<i class="ri-loader-4-line"></i>)}
                 </div>
               </div>
             ))
